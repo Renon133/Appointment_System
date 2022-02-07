@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import peoplestrong.team7.appointmentApp.Exception.UserAlreadyExistsException;
+import peoplestrong.team7.appointmentApp.Models.PasswordObject;
 import peoplestrong.team7.appointmentApp.Models.User;
 import peoplestrong.team7.appointmentApp.Repository.UserRepository;
+import peoplestrong.team7.appointmentApp.Services.ChangePasswordService;
 import peoplestrong.team7.appointmentApp.Services.RegistrationService;
 
 @RestController
@@ -70,5 +72,14 @@ public class ApiController {
     @RequestMapping("/logout-success")
     public String logoutSuccessPage() {
         return "Logout SuccessFul";
+    }
+
+
+    @Autowired
+    private ChangePasswordService changePasswordService;
+    @RequestMapping("/user/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody PasswordObject object) {
+        String result = changePasswordService.changePassword(object.getOldPassword(), object.getNewPassword(), object.getEmailID());
+        return ResponseEntity.ok(result);
     }
 }
