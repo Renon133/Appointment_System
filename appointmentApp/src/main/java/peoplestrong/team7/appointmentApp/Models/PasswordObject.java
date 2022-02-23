@@ -35,7 +35,4 @@ public class PasswordObject {
         this.emailID = emailID;
     }
 
-
-
-
 }

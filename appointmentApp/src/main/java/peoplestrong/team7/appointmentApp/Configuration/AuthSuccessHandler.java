@@ -18,31 +18,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        authorities.forEach(authority -> {
-            if(authority.getAuthority().equals("ROLE_USER")) {
-                try {
-                    System.out.println("Login Successful...Redirecting");
-                    redirectStrategy.sendRedirect(request, response, "/login-success");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }else if(authority.getAuthority().equals("ROLE_ADMIN")) {
-                try {
-                    redirectStrategy.sendRedirect(request, response, "/admin");
-                } catch (Exception e) {
 
-                    e.printStackTrace();
-                }
-            } else {
-                throw new IllegalStateException();
-            }
-        });
-
-    }
 
 }
 
